@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   function validateAndIdentifyCard(cardNumber) {
+    // Stop user being able to enter non integer characters
+    const cardNumber = e.target.value.replace(/\D/g, "");
+
     // Remove any non-digit characters
     cardNumber = cardNumber.replace(/\D/g, "");
 

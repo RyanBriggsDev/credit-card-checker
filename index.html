@@ -7,12 +7,19 @@
     <title>Credit Card Checker</title>
   </head>
   <body>
-    <div>
-      <label for="cardInput">Enter Card Number:</label>
-      <input type="text" id="cardInput" placeholder="Card Number" />
-      <div id="cardInfo">
-        <p id="cardType">Card Type: Unknown</p>
-        <p id="cardValidity">Validity: Invalid</p>
+    <div class="form-wrapper">
+      <div class="form-container">
+        <input
+          type="number"
+          id="cardInput"
+          class="floating-input"
+          placeholder=" "
+        />
+        <label for="cardInput" class="floating-label">Enter Card Number</label>
+        <div id="cardInfo">
+          <p id="cardType">Card Type: Unknown</p>
+          <p id="cardValidity">Validity: Invalid</p>
+        </div>
       </div>
     </div>
   </body>
