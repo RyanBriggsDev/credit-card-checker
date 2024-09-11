@@ -28,7 +28,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const isValid = sum % 10 === 0;
 
-    return { isValid, cardType: "Unknown" };
+    // Check card type
+    let cardType = "Unknown";
+    switch (true) {
+      case /^4/.test(cardNumber):
+        cardType = "Visa";
+        break;
+      case /^5[1-5]/.test(cardNumber):
+        cardType = "MasterCard";
+        break;
+      case /^3[47]/.test(cardNumber):
+        cardType = "American Express";
+        break;
+      case /^6(?:011|5)/.test(cardNumber):
+        cardType = "Discover";
+        break;
+      case /^(?:2131|1800|35\d{3})/.test(cardNumber):
+        cardType = "JCB";
+        break;
+      default:
+        cardType = "Unknown";
+    }
+
+    return { isValid, cardType };
   }
 
   // listen for changes on input field
@@ -36,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const cardNumber = this.value;
     const result = validateAndIdentifyCard(cardNumber);
 
-    document.getElementById("cardType").textContent = "Card Type: Unknown";
+    document.getElementById(
+      "cardType"
+    ).textContent = `Card Type: ${result.cardType}`;
     document.getElementById("cardValidity").textContent = `Validity: ${
       result.isValid ? "Valid" : "Invalid"
     }`;
