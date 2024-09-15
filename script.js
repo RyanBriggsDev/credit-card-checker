@@ -53,10 +53,59 @@ document.addEventListener("DOMContentLoaded", function () {
     return { isValid, cardType };
   }
 
+  // Function to update card image
+  function updateCardImage(cardType) {
+    const cardTypeImage = document.getElementById("cardTypeImage");
+    let imagePath = "";
+
+    switch (cardType) {
+      case "Visa":
+        imagePath = "assets/card_types/visa.png";
+        cardTypeImage.style.top = "4px";
+        break;
+      case "MasterCard":
+        imagePath = "assets/card_types/mastercard.svg";
+        cardTypeImage.style.top = "5px";
+        break;
+      case "American Express":
+        imagePath = "assets/card_types/amex.png";
+        cardTypeImage.style.top = "0px";
+        break;
+      case "Discover":
+        imagePath = "assets/card_types/discover.png";
+        cardTypeImage.style.top = "0px";
+        break;
+      case "JCB":
+        imagePath = "";
+        cardTypeImage.style.top = "0px";
+        break;
+      default:
+        imagePath = "";
+    }
+
+    cardTypeImage.src = imagePath;
+    cardTypeImage.parentElement.style.display = imagePath ? "block" : "none";
+  }
+
   // listen for changes on input field
   document.getElementById("cardInput").addEventListener("input", function () {
     const cardNumber = this.value;
     const result = validateAndIdentifyCard(cardNumber);
+    if (result.isValid) {
+      this.classList.add("valid");
+      this.classList.remove("invalid");
+    } else {
+      if (!this.classList.contains("invalid")) {
+        this.classList.remove("valid");
+        this.classList.add("invalid");
+      }
+    }
+
+    if (this.value == "") {
+      this.classList.remove("invalid");
+    }
+
+    updateCardImage(result.cardType);
 
     document.getElementById(
       "cardType"
