@@ -87,8 +87,17 @@ document.addEventListener("DOMContentLoaded", function () {
     cardTypeImage.parentElement.style.display = imagePath ? "block" : "none";
   }
 
+  const cardInput = document.getElementById("cardInput");
+
+  // Prevent non-numeric input
+  cardInput.addEventListener("keypress", function (e) {
+    if (e.which < 48 || e.which > 57) {
+      e.preventDefault();
+    }
+  });
+
   // listen for changes on input field
-  document.getElementById("cardInput").addEventListener("input", function () {
+  cardInput.addEventListener("input", function () {
     const cardNumber = this.value;
     const result = validateAndIdentifyCard(cardNumber);
     if (result.isValid) {
@@ -101,17 +110,21 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    if (this.value == "") {
-      this.classList.remove("invalid");
-    }
-
     updateCardImage(result.cardType);
 
-    document.getElementById(
-      "cardType"
-    ).textContent = `Card Type: ${result.cardType}`;
-    document.getElementById("cardValidity").textContent = `Validity: ${
-      result.isValid ? "Valid" : "Invalid"
-    }`;
+    let cardValidity = document.getElementById("cardValidity");
+
+    if (result.isValid) {
+      cardValidity.style.color = "lime";
+    } else {
+      cardValidity.style.color = "red";
+    }
+
+    if (this.value == "") {
+      this.classList.remove("invalid");
+      cardValidity.style.color = "#d9d9d9";
+    }
+
+    cardValidity.textContent = `${result.isValid ? "Valid" : "Invalid"}`;
   });
 });

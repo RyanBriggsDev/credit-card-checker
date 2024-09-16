@@ -111,4 +111,11 @@ h6 {
   .wrapper {
     padding: 0 80px;
   }
+  #cardInfo,
+  .input-container {
+    display: inline-block;
+  }
+  #cardInfo {
+    margin-left: 15px;
+  }
 }
